@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Cook</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href='/staticFiles/main.css'>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="gradient"></div>
+    <header>
+        <div class="header-container">
+          <h1>Data Cook</h1>
+        </div>
+      </header>
+        <section class="content">
+    <div class="container">
+      <div class="nested-container-top">
+        <form method="post">
+            <p name="question" value="{{ question }}">{{ question }}</p>
+            <p name="suggestion" value="{{ suggestion }}">{{ suggestion }}</p>
+            {% if list %}
+              {% for option in options %}
+              <div>
+                <input type="checkbox" name="options" value="{{ option }}">
+                <label>{{ option }}</label>
+              </div>
+              {% endfor %}
+            {% else %}
+              <input type="radio" name="{{ button_name }}" value="yes" {% if reset %}checked{% endif %}> Yes<br>
+              <input type="radio" name="{{ button_name }}" value="no" {% if reset %}checked{% endif %}> No<br>
+            {% endif %}
+            <input type="submit" value="Submit">
+          </form>
+      </div>
+    </div>
+  </section>
+  <div class="left-container">
+    <div class="nested-container-botton-left">
+      <h3>Container 2</h3>
+      <p name="message">{{ message|safe }}</p>
+    </div>
+  </div>
+  <div class="right-container">
+    <div class="top-right">
+      <div class="nested-container-bottom-right-one">
+        <h3>Container 3</h3>
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+    <div class="bottom-right">
+      <div class="nested-container-bottom-right-two">
+        <h3>Container 4</h3>
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

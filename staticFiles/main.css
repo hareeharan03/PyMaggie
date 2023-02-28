@@ -1,0 +1,229 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.gradient {
+  --size: 1050px;
+  --speed: 50s;
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  max-height:500px;
+  width: var(--size);
+  height: var(--size);
+  filter: blur(calc(var(--size) / 4.2));
+  background-image: linear-gradient(rgba(55, 235, 169, 0.85), #5b37eb);
+  animation: rotate var(--speed) var(--easing) alternate infinite;
+  border-radius: 70% 70% 70% 70%/30% 30% 70% 70%;
+  position: fixed;
+  top: 27%;
+  left: 30%;
+  z-index: -1;
+
+}
+
+@media (min-width: 620px) {
+  .gradient {
+    --size: 700px;
+  }
+}
+
+body {
+  background-color: #1a1919;
+}
+
+/* position: absolute;
+inset: 0;
+overflow: hidden;
+display: flex;
+place-content: center;
+align-items: center;
+overflow: hidden; */
+
+/* This is just to transition when you change the viewport size. */
+* {
+  transition: all 0.25s ease-out;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.header-container {
+  background-color: rgba(3, 0, 0, 0.2);
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 32px;
+  color: white;
+  margin: 0;
+}
+
+.content {
+  background-color: rgba(0, 0, 0, 0.437);
+  border-radius: 20px;
+  margin-top: 90px;
+  max-width:93%;
+  max-height:140px;
+  align-items: center;
+  margin-left: 3.2%;
+  margin-right: 3.2%;
+  text-align:center;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  color: white;
+}
+
+.container h2 {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.container p {
+  font-size: 16px;
+}
+
+/* Styles for the left column */
+.left-container {
+    width: 51%;
+    height: 64vh;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.437);
+    float: left;
+    color: white;
+    padding: 10px;
+    margin-top: 6px;
+    max-width: 90%;
+    align-items: center;
+    margin-left: 3.2%;
+    }
+
+    /* Styles for the right column */
+.right-container {
+    width: 39.5%;
+    height: 66.6vh;
+    float:right;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 3.2%;
+    max-width: 100%;
+    display: flex;
+    margin-top: 6px;
+    flex-direction: column;
+    
+    }
+
+    /* Styles for the top row of the right column */
+    .top-right {
+    height: 40%;
+    width: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.437);
+    text-align: center;
+    justify-content: center;
+    
+    }
+
+    /* Styles for the bottom row of the right column */
+    .bottom-right {
+      flex-grow: 1;
+    height: 68%;
+    width: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.437);
+    text-align: center;
+    margin-top: 19px;
+    justify-content: center;
+    }
+
+    @media only screen and (max-width: 768px) {
+      /* Styles for the left column when screen size is reduced */
+      .left-container {
+        width: 100%;
+        max-width: 51%;
+      }
+      
+      /* Styles for the right column when screen size is reduced */
+      .right-container {
+        width: 100%;
+        max-width: 39.5%;
+      }
+    }
+
+/* Nested Container */
+
+
+
+
+
+.nested-container-botton-left {
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.437);
+  width: 99.95%;
+  height: 93.8%;
+  margin-top:30px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.nested-container-bottom-right-one {
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.437);
+  width: 96.5%;
+  text-align: center;
+  height: 74%;
+  margin-top:35px;
+  margin-left: auto;
+  margin-right: auto;
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.nested-container-bottom-right-two {
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.437);
+  width: 96.5%;
+  text-align: center;
+  height: 85%;
+  margin-top:35px;
+  margin-left: auto;
+  margin-right: auto;
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+  grid-gap: 10px; /* space between cells */
+}
+
+.chart-cell {
+  border: 1px solid gray;
+  padding: 10px;
+}

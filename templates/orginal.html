@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/staticFiles/main.css'>
+    <title>Questions</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <form method="post">
+      <p name="question" value="{{ question }}">{{ question }}</p>
+      <p name="suggestion" value="{{ suggestion }}">{{ suggestion }}</p>
+      {% if list %}
+        {% for option in options %}
+        <div>
+          <input type="checkbox" name="options" value="{{ option }}">
+          <label>{{ option }}</label>
+        </div>
+        {% endfor %}
+      {% else %}
+        <input type="radio" name="{{ button_name }}" value="yes" {% if reset %}checked{% endif %}> Yes<br>
+        <input type="radio" name="{{ button_name }}" value="no" {% if reset %}checked{% endif %}> No<br>
+      {% endif %}
+      <input type="submit" value="Submit">
+    </form>
+    <p name="message">{{ message|safe }}</p>
+  </body>
+</html>
