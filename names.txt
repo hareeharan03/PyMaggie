@@ -1,0 +1,122 @@
+FlaskyFry
+PandasPasta
+PyMaggie
+PyNoodle
+ScrapySauce
+PyPudding
+"DataMaggie"
+"MaggieMetrics"
+"MaggieMaster"
+"DataNoodle"
+"MaggieMind"
+"DataMaggi"
+"MaggieInsight"
+"NoodleNerd"
+"MaggieAnalysis"
+"DataNoodlePro"
+
+this is my code that when form is valid certain animation css is added to button status by js but it doesnt works here is the code
+"/* for sucess state */
+.button.animate_success {
+  width: 68.1818181818px;
+  height: 68.1818181818px;
+  min-width: 0;
+  border-radius: 50%;
+  color: transparent;
+}
+.button.animate_success:after {
+  position: absolute;
+  content: "";
+  width: 25px;
+  height: 25px;
+  border: 4px solid #fefefe;
+  border-radius: 50%;
+  border-left-color: transparent;
+}
+.button.animate_success.status:before {
+  position: absolute;
+  content: "";
+  width: 25px;
+  height: 12.5px;
+}
+
+
+/* for error state */
+
+.button.animate_error {
+  width: 68.1818181818px;
+  height: 68.1818181818px;
+  min-width: 0;
+  border-radius: 50%;
+  color: transparent;
+}
+.button.animate_error:after {
+  position: absolute;
+  content: "";
+  width: 25px;
+  height: 25px;
+  border: 4px solid #fefefe;
+  border-radius: 50%;
+}
+
+.button.animate_error.status {
+  position: relative;
+  -webkit-animation: vibrate ease-in 0.5s forwards;
+  animation: vibrate ease-in 0.5s forwards;
+  -webkit-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}
+.button.animate_error.status:before {
+  color: #fff;
+  position: absolute;
+  content: "!";
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}"
+
+and js code"
+function validateForm(event) {
+  // Check if a radio button is checked
+  var radioChecked = false;
+  var radios = document.getElementsByName("{{ button_name }}");
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      radioChecked = true;
+      break;
+    }
+  }
+
+
+  // Submit the form if an answer has been selected
+  if (radioChecked) {
+    document.getElementById("my-form").submit();
+    animateButton(e)
+    return true
+  } else {
+    event.preventDefault();
+    animateButton(e)
+    alert("Please select an answer.");
+    return false
+  }
+}
+ 
+function animateButton(e) {
+  console.log("came inside animatebutton fuction");
+  
+  // validate form
+  var isValid = validateForm(event);
+  
+  // add animate_success or animate_error class based on validation result
+  if (isValid) {
+    e.target.classList.add('animate_success');
+    setTimeout(function(){
+      e.target.classList.remove('animate_success');
+    }, 6000);
+  } else {
+    e.target.classList.add('animate_error');
+    setTimeout(function(){
+      e.target.classList.remove('animate_error');
+    }, 6000);
+  }
+}"

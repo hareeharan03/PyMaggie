@@ -26,3 +26,189 @@
     <p name="message">{{ message|safe }}</p>
   </body>
 </html>
+
+
+
+
+plot_divs = []
+
+# loop through each categorical column and create a plot_div for it
+for col in categorical_li:
+    unique_vals = df[col].value_counts()
+    trace = go.Bar(x=unique_vals.index.tolist(), y=unique_vals.values.tolist(),marker=dict(color=px.colors.qualitative.Pastel))
+    layout = go.Layout(
+        title=f"{col}",
+        xaxis=dict(title="Value"),
+        yaxis=dict(title="Count", tickformat=".0f"),
+        margin=dict(t=60, b=60, l=60, r=60)
+    )
+    fig = go.Figure(data=[trace], layout=layout)
+    plot_div = fig.to_html(full_html=False)
+    plot_divs.append(plot_div)
+
+# create a list of HTML divs, each containing a plot_div for a categorical column
+divs = []
+
+divs.append('<div class="chart-grid">')
+for plot_div in plot_divs:
+    divs.append(f'<div class="chart-cell">{plot_div}</div>')
+divs.append('</div>')
+#create a single HTML string by concatenating the HTML divs
+html = ''.join(divs)
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Cook</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href='/staticFiles/main.css'>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Attach an event handler to the form submit button
+      $("form").on("submit", function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        // Send an AJAX request to the Flask endpoint
+        $.ajax({
+          type: "POST",
+          data: $("form").serialize(),
+          success: function(response) {
+            // Check if a redirect is requested
+            if (response.redirect) {
+              window.location.href = response.redirect;
+            } else {
+              // Update the question, message, and list elements
+              $("p[name='question']").html(response.question);
+              $("p[name='message']").html(response.message);
+              $("form input[type='checkbox'], form input[type='radio']").prop("checked", false);
+              $("input[type='submit']").val("Submit");
+              if (response.list) {
+                // TODO: update the options dynamically using response.options
+              }
+            }
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+    <div class="gradient"></div>
+    <header>
+        <div class="header-container">
+          <h1>Data Cook</h1>
+        </div>
+      </header>
+        <section class="content">
+    <div class="container">
+      <div class="nested-container-top">
+        <form method="post">
+            <p name="question" value="{{ question }}">{{ question }}</p>
+            <p name="suggestion" value="{{ suggestion }}">{{ suggestion }}</p>
+            {% if list %}
+              {% for option in options %}
+              <div>
+                <input type="checkbox" name="options" value="{{ option }}">
+                <label>{{ option }}</label>
+              </div>
+              {% endfor %}
+            {% else %}
+              <input type="radio" name="{{ button_name }}" value="yes" {% if reset %}checked{% endif %}> Yes<br>
+              <input type="radio" name="{{ button_name }}" value="no" {% if reset %}checked{% endif %}> No<br>
+            {% endif %}
+            <input type="submit" value="Submit">
+          </form>
+      </div>
+    </div>
+  </section>
+  <div class="left-container">
+    <div class="nested-container-botton-left">
+      <h3>Container 2</h3>
+      <p name="message">{{ message|safe }}</p>
+    </div>
+  </div>
+  <div class="right-container">
+    <div class="top-right">
+      <div class="nested-container-bottom-right-one">
+        <h3>Container 3</h3>
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+    <div class="bottom-right">
+      <div class="nested-container-bottom-right-two">
+        <h3>Container 4</h3>
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+from flask import Flask, render_template, request, redirect, flash, url_for
+import pandas as pd
+
+app = Flask(__name__)
+app.secret_key = 'some_secret_key'
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file:
+            if file.content_length > 20 * 1024 * 1024:
+                flash('File size exceeds limit of 20 MB', 'error')
+            elif not file.filename.endswith('.csv'):
+                flash('File must be a CSV', 'error')
+            else:
+                df = pd.read_csv(file)
+                flash('File uploaded successfully', 'success')
+                return redirect(url_for('home'))
+        else:
+            flash('No file selected', 'error')
+    return render_template('upload.html')
+
+@app.route('/sample_data', methods=['POST'])
+def sample_data():
+    df = pd.read_csv('default.csv')
+    flash('Sample data loaded', 'success')
+    return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+    $(document).ready(function(){
+      $("#submit-btn").click(function(e){
+        e.preventDefault(); // prevent default form submission
+        $("#myModal").modal('show'); // show modal when first button is pressed
+      });
+      $("#modal-submit-btn").click(function(e){
+        e.preventDefault(); // prevent default form submission
+        var file = $("#file").val(); // get the file input value
+        var ext = file.split('.').pop().toLowerCase(); // get the file extension
+        var size = $("#file")[0].files[0].size; // get the file size in bytes
+        var validExt = ["csv"]; // define valid extensions
+        var maxSize = 20 * 1024 * 1024; // define max size as 4 MB
+        if (validExt.indexOf(ext) == -1) { // check if extension is valid
+          alert("Invalid file type. Please upload a PDF or DOCX file.");
+          return false;
+        }
+        if (size > maxSize) { // check if size is within limit
+          alert("File size too large. Please upload a file smaller than 4 MB.");
+          return false;
+        }
+        $("#myModal").modal('hide'); // hide modal if validation passes
+      });
+    });
+    

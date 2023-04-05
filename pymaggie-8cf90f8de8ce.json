@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pymaggie",
+  "private_key_id": "8cf90f8de8ce1030ba95407ffd469fac368a2847",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDMwHWFUV85jTay\nQBF8Dq2fCwnLxhIJgPFE9EK9Is0xi27sTgFihxi5ULwA/ai1mAXO/eRO5xwRl2VE\nR613FOwZykyGZsfDbD9NGDdW7olXlS5wseSvRxKInprXhNP0FLDtiDYV7P+gfJyp\nvmGT6KiZ5PSRwrrHJxlfdQQgkSn8yrYL+PwiKJbJfsi7SdknzBIqS0nYEUlpRmHn\nTX10BJpm0nPIOYtRbMrVlzn/Lb9q5zqtv2XseUvSXcFc+pBbr9aKD0CfFvASzUmr\nDFQ7cy8pMg13ParyDVJAC/ROMY7mX7viZqGe83KCQgsiee3vFJ7Q8JsdJta7vjNu\nvK3fkUYFAgMBAAECggEAI4AfID1qmEzutds77NmSque8DBPMns83hfAf/jEhiLyX\nP+uKe+3WkJL59eYFMW8pWqlUw4V4rWgli8AtyF7dTN9xg0Ag1LZZB2HyfmUfdQsN\noUaG0wksonl1eXazVTedMaITVpvf+pCAjUHQI1gMm5pB+V/dCJiz4oQkcg0ZTZX8\nrNk6/BacT+tA7ZYqF12Q+SOJ7D0i1M8NAvq0rqvxt4Egi+Va9VLjmEAsWBWDPH6B\nQfxGpyT/IK+4VCuFopB3J7a/N/qNfVbGcnKnysrp4vW8C3WhsEXVbE8OYYsOLf8T\n1/GKI4VCICt7yo2kUSpzUPhNjTIC21ln7teb4opJBQKBgQDrJkei13z9pot9keI6\nYXuolsp6bLdgKUMSRznWdB+Mf+VQTsrr10ZPLqXodr9rJru7KBqyR2nRo8cfp2TD\nBX7A2fLHgR92rJgGUvYCIuq5s2IGo7LmWFxv1Lp63OoUf/8uxHEDQsNkMPyP/2Nq\ndP4Vd52N7PK28Zc5ryfU6ZXiNwKBgQDe6CxROBH8Erdv0gjBumdidq08jlxAqjIt\nCs3jCBTOvg/PWXzjI8bNloBjcBpD6O6m9bEfnjgud+Eoe1myy5bmmQVcD3xL0zLb\ndOZZuSDU2hlQcpVad5eolVjZM20yxzmC+necTv/In/PQNOveXUF9LHRn1baikFvY\nbAfdk3UrowKBgHns3kX8D44BleAlDTUSKKkQjqoNxsMwgdtvXPjqOxWBlygdwq+o\nbodN+65eLABmE/8F21nHF4IgtnWeOOu55LAgEfcJ54OEGEtnJrGS4zwoW9JvfKpc\n9Ijzt0FPXHwGpgzcxHBZZLCFid8sH6MqSDhfTi0xx+O9vpilTjTibNnfAoGAMArg\nSl0IW0j5aktdgcuYLrufWNbiATnteJHEkDMUsP57z9fct+PlHDhc0ZG+x3YzwZ5g\nn4ztVO6Xg68aRRPmIStH4XCg/IK3il8mqp3g+p9LJ3CayhXOhRIzRRT1ayVPOvCa\nyQCp1mbLGMvfLlzxGXZ0XFDOfTkZ4opeI559eXsCgYAiizXqWuUCfF7ZRDR2u0gm\ngQwiTU3EUgdo9lPJExRE9I+AGuH0Q8SQG2//wyTXJFrSxIYZFiIbRsg5tN6qVMDg\nDmBFdPthf8ZCEk56X/tV3UEq44urPoktUgxmE5VIlenCZqt/QC6DepIvk/MUNhQk\ncO0Rx9Vr5pJ7fi3MkV0cyg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "data-cook@pymaggie.iam.gserviceaccount.com",
+  "client_id": "110878033259123905613",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/data-cook%40pymaggie.iam.gserviceaccount.com"
+}

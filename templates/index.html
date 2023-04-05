@@ -3,9 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <title>Data Cook</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href='/staticFiles/main.css'>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+  <!-- Intro js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/introjs.css">
+  <link rel="stylesheet" href="https://unpkg.com/intro.js/themes/introjs-modern.css">
+  <script src="https://unpkg.com/intro.js/minified/introjs.min.css"></script>
+
+  <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+$(document).ready(function(){
+  $("#submit-btn").click(function(e){
+    e.preventDefault(); // prevent default form submission
+    $("#myModal").modal('show'); // show modal when first button is pressed
+  });
+  $("#modal-submit-btn").click(function(e){
+
+    var form = document.getElementById("upload-form");
+    var file = $("#file").val(); // get the file input value
+    var ext = file.split('.').pop().toLowerCase(); // get the file extension
+    var size = $("#file")[0].files[0].size; // get the file size in bytes
+    var validExt = ["csv"]; // define valid extensions
+    var maxSize = 20 * 1024 * 1024; // define max size as 4 MB
+    if (validExt.indexOf(ext) == -1) { // check if extension is valid
+      // select an HTML element by id
+      var element = document.getElementById("warning");
+
+      // update its innerHTML with message variable
+      element.innerHTML = "Invalid file type. Please upload a CSV file.";
+      return false;
+    }
+    if (size > maxSize) { // check if size is within limit
+      // select an HTML element by id
+      var element = document.getElementById("warning");
+
+      // update its innerHTML with message variable
+      element.innerHTML = "File size too large. Please upload a file smaller than 20 MB.";
+      return false;
+    }
+    $("#myModal").modal('hide'); // hide modal if validation passes
+  });
+
+  $("#use-sample-btn").click(function(e){
+    $("#myModal").modal('hide'); // hide modal when button is pressed
+  });
+
+});
+
+function validateForm(event) {
+  event.preventDefault();
+
+  console.log("JS code is working!");
+  // Check if a radio button is checked
+  let button = document.querySelector('.button');
+  let buttonText = document.querySelector('.tick');
+
+
+  var radioChecked = false;
+  var radios = document.getElementsByName("{{ button_name }}");
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      radioChecked = true;
+      break;
+    }
+  }
+
+  // Check if a checkbox is checked
+  var checkboxChecked = false;
+  var checkboxes = document.getElementsByName("options");
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      checkboxChecked = true;
+      break;
+    }
+  }
+
+  dropdownSelected=false
+  var dropdown_trigger="{{ dropdown }}"
+  if (dropdown_trigger){
+  console.log("success entered the fuc");
+  var dropdown = document.getElementById("my-dropdown");
+  var dropdownSelected = dropdown.options[dropdown.selectedIndex].value !== "";
+  }
+
+
+  // Submit the form if an answer has been selected
+  if (radioChecked || dropdownSelected || checkboxChecked) {
+
+    event.preventDefault();
+
+    const tickMark = "<svg width=\18\" height=\"45\" viewBox=\"0 0 58 45\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"#fff\" fill-rule=\"nonzero\" d=\"M19.11 44.64L.27 25.81l5.66-5.66 13.18 13.18L52.07.38l5.65 5.65\"/></svg>";
+    
+    button.classList.add('button__circle_success');
+    buttonText.innerHTML = tickMark;
+
+    setTimeout(function(){
+    button.classList.remove('button__circle_success');
+    buttonText.innerHTML = "Submit";
+  }, 3000);
+
+    setTimeout(function(){
+    document.querySelector('#spinner').style.display = 'block';
+   }, 800);
+
+
+  setTimeout(function(){
+    document.getElementById("my-form").submit();
+  }, 1000);
+
+    
+
+  } else {
+    event.preventDefault();
+    
+    const errorMark='<svg width=\"25\" height=\"45\" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#ffffff" transform="rotate(180)" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M238.301,346.393c0.598,3.938,2.563,7.725,5.903,11.359c3.313,3.626,7.252,5.447,11.796,5.447 c10.592,0,16.486-5.608,17.691-16.806l35.398-271.98c0.607-4.823,0.911-11.636,0.911-20.415c0-13.618-4.679-26.013-14.065-37.22 C286.558,5.59,273.244,0,255.999,0c-17.868,0-31.317,5.742-40.389,17.226c-9.073,11.206-13.61,23.459-13.61,36.773 c0,8.172,0.285,14.976,0.892,20.415L238.301,346.393z"></path> <path class="st0" d="M295.033,418.065c-10.288-10.287-23.307-15.44-39.034-15.44c-15.422,0-28.441,5.314-39.032,15.896 c-10.591,10.591-15.877,23.441-15.877,38.569c0,14.52,5.286,27.379,15.877,38.577C227.558,506.562,240.578,512,255.999,512 c15.423,0,28.424-5.286,39.034-15.886c10.574-10.574,15.877-23.593,15.877-39.024C310.91,441.658,305.607,428.656,295.033,418.065z "></path> </g> </g></svg>'
+
+    button.classList.add('button__circle_error');
+    buttonText.innerHTML = errorMark;
+    
+    
+    setTimeout(function(){
+    button.classList.remove('button__circle_error');
+    buttonText.innerHTML = "Submit";
+    },3000);
+
+    var element_warn = document.getElementById("suggestion_warn");
+
+      // update its innerHTML with message variable
+      element_warn.innerHTML = "please select the answer";
+
+
+  }
+}
+ 
+// this js is for welcome popup
+
+$(document).ready(function(){
+    var show_welcome_popup="{{ show_welcome_popup }}"
+    if (show_welcome_popup){
+    setTimeout(function() {
+        $("#myModal_welcome").modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    }, 3000); // 3 second delay
+  }
+});
+
+
+function intro() {
+  console.log("JS code inside intro");
+  introJs().setOptions('showProgress',true).start();
+ 
+}
+
+
+
+// function validateForm() {
+//     var radios = document.getElementsByName("{{ button_name }}");
+//     var formValid = false;
+
+//     var i = 0;
+//     while (!formValid && i < radios.length) {
+//         if (radios[i].checked) formValid = true;
+//         i++;        
+//     }
+
+//     if (!formValid) {
+//         alert("Please select an answer for the radio button.");
+//         return false;
+//     }
+// }
+
+// document.getElementById("my-Form").addEventListener("submit", function(event) {
+//   console.log("JS code is working!");
+//     if (!validateForm()) {
+//       console.log("JS code is event");
+//         event.preventDefault();
+//     }
+// });
+
+
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href='/staticFiles/main.css'>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </head>
 <body>
     <div class="gradient"></div>
@@ -13,49 +207,173 @@
         <div class="header-container">
           <h1>Data Cook</h1>
         </div>
-      </header>
-        <section class="content">
-    <div class="container">
-      <div class="nested-container-top">
-        <form method="post">
-            <p name="question" value="{{ question }}">{{ question }}</p>
-            <p name="suggestion" value="{{ suggestion }}">{{ suggestion }}</p>
-            {% if list %}
-              {% for option in options %}
-              <div>
-                <input type="checkbox" name="options" value="{{ option }}">
-                <label>{{ option }}</label>
-              </div>
-              {% endfor %}
-            {% else %}
-              <input type="radio" name="{{ button_name }}" value="yes" {% if reset %}checked{% endif %}> Yes<br>
-              <input type="radio" name="{{ button_name }}" value="no" {% if reset %}checked{% endif %}> No<br>
-            {% endif %}
-            <input type="submit" value="Submit">
-          </form>
+    </header>
+
+
+    {% if show_welcome_popup %}
+    <!-- Add the Bootstrap Modal component with fade-in animation -->
+    <div class="modal fade" id="myModal_welcome" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Hello and welcome to PyMaggie!!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <p class="Welcome_note">As a Data Cook, I have created an open-source Data Kitchen where you can customize and create your own recipes to explore data, preprocess data or just have fun with data. Whether you're a seasoned chef or just getting started, and I'm excited to share this unique platform with you. So, put on your apron and let's get cooking some data magic to fuel your ML models!</p>
+            <h5 class="welcome_question">What is PyMaggie all about??</h5>
+            <p class="welcome_pymaggie_description">PyMaggie, the ultimate no-code platform that allows users to explore and preprocess their uploaded data through interactive steps, from checking dataset shape to splitting data for training and testing. That includes addressing missing values, duplicate rows, encoding categorical columns, and much more. And the best part? You don’t have to be a data nerd or do it alone. PyMaggie is designed in a way that guides you and takes you through every step, with detailed explanations of each process and why it’s important. Plus, you can learn from your mistakes before you even make them! If you have skipped any important step that may cause issues, PyMaggie will flag them and give suggestions on how to address them. So you can proceed with confidence and learn as you go. Finally, you can download your preprocessed data along with the detailed report of each step you have undergone for the refernce.</p>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="intro()">Take a tour</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Continue to website</button>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-  <div class="left-container">
+    {% endif %}
+
+
+    <section class="content">
+      <div class="container">
+        <div class="row-1">
+          <div class="col-1">
+            <p name="question" value="{{ question }}">{{ question }}</p>
+          </div>
+
+          {% if upload %}
+          <div class="col-2-and-3">
+            <button type="button" class="btn btn-primary" id="submit-btn">Assign Data</button>
+          </div>
+          {% else %}
+            <div class="col-2">
+              <form method="post" id="my-form">
+                  {% if dropdown %}
+                  <div class="dropdown">
+                    <select id="my-dropdown" name="options">
+                        {% for option in options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                  {% else %}
+                    {% if list %}
+                      {% for option in options %}
+                      <div>
+                        <input type="checkbox" name="options" value="{{ option }}">
+                        <label>{{ option }}</label>
+                      </div>
+                      {% endfor %}
+                    {% else %}
+                    <div class="radio-buttons">
+                      <label><input type="radio" name="{{ button_name }}" value="yes" id="{{ button_name }}-yes" {% if reset %}checked{% endif %}> Yes<br></label>
+                      <label><input type="radio" name="{{ button_name }}" value="no" id="{{ button_name }}-no" {% if reset %}checked{% endif %}> No<br></label>
+                    </div>
+                    {% endif %}
+                  {% endif %}
+            </div>
+              
+            <div class="col-3">
+                  <div class="button">
+                    <button type="submit" class="tick" onclick="validateForm(event)">Submit
+                    </button>
+                  </div>
+            </div>
+                {% endif %}
+              </form>
+
+              
+              <div class="popup">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Assign data</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form method="post" id="upload-form" enctype="multipart/form-data">
+                          <div class="form-group">
+                            <label for="file-input">Upload CSV File:</label>
+                            <input type="file" class="form-control-file" name="file" id="file">
+                          </div>
+                          <button type="submit" class="btn btn-default" id="modal-submit-btn" name="submit_button" value="submitted">Submit</button>
+                        </br><p>Or</p>
+                        <button type="submit" class="btn btn-default" id="use-sample-btn" name="use_sample_data_button" value="used-sample">Use Sample Data</button>
+                        </form>
+                      </div>
+                      <div class="flash_messages">
+                      {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class="flashes">
+                          {% for message in messages %}
+                            <li>{{ message }}</li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    <p id="warning">{{ warning|safe }}</p>
+                    </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+        </div>
+        <div class="row-2">
+          <p name="suggestion" id="suggestion_warn" value="{{ suggestion }}">{{ suggestion }}</p>
+        </div>
+      </div>
+    </section>
+  <div class="left-container" data-step="1" data-intro="This is the place where you can see all the live info about dataset">
     <div class="nested-container-botton-left">
-      <h3>Container 2</h3>
-      <p name="message">{{ message|safe }}</p>
+      <div class="inner-bottom-left"
+        <p name="message">{{ message|safe }}</p>
+      </div>
     </div>
   </div>
   <div class="right-container">
-    <div class="top-right">
+    <div class="top-right" data-step="2" data-intro="Here you can see all the definations and and additional information">
       <div class="nested-container-bottom-right-one">
-        <h3>Container 3</h3>
-        <p>Lorem ipsum dolor sit amet</p>
+        <div class="inner-bottom-right-one">
+          <p name="info">{{ info|safe }}</p>
+        </div>
       </div>
     </div>
-    <div class="bottom-right">
+    <div class="bottom-right" data-step="3" data-intro="here you can see the dataset lively">
       <div class="nested-container-bottom-right-two">
-        <h3>Container 4</h3>
-        <p>Lorem ipsum dolor sit amet</p>
+        <div class="inner-bottom-right-two">
+          <p name="dataframe">{{ dataframe|safe }}</p>
+        </div>
       </div>
+    </div>
+    </div>
+
+  </div>
+
+  <div id="spinner">
+    <div class="spinner-content">
+      <img src="staticFiles\spinner.gif" alt="Loading..." />
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.js"></script>
+
 </body>
 </html>
+
+
+
 
